@@ -128,7 +128,7 @@ class MemcacheWrapper:
 		""" cache (get/set) """
 
 		ret_get = self.get(key=key)
-		if ret_get != None:
+		if ret_get:
 			return ret_get
 
 		return self.set(key=key, data=data, mtime=mtime)

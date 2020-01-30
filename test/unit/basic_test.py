@@ -86,7 +86,7 @@ class TestMemcache(unittest.TestCase):
 
 		ret = cache.set('AAA')
 		self.__check_ret_ok(ret)
-		
+
 
 	def test_incr_decr(self):
 		""" incr/desc() """
@@ -114,6 +114,7 @@ class TestMemcache(unittest.TestCase):
 
 
 	def test_delete(self):
+		""" delete """
 
 		# init
 		self.__check_init()
@@ -127,6 +128,6 @@ class TestMemcache(unittest.TestCase):
 		# delete err
 		#ret = cache.delete('D2')
 		#self.__check_ret_err(ret)
-		
+
 if __name__ == '__main__':
 	unittest.main()

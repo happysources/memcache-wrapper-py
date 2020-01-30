@@ -1,0 +1,49 @@
+sudo: required
+language: python
+python:
+  - "3.5"
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"
+  - "3.7-dev"  # 3.7 development branch
+  - "3.8-dev"  # 3.8 development branch
+  - "nightly"  # nightly build
+
+
+# Create a Travis memcached enabled environment for the test suite to run in and
+# ensure that we test against localhost on Travis-CI.
+services: memcache
+
+env:
+  - PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages/:/usr/local/lib/python3/dist-packages/:$PWD:$PWD/memcachewrapper/
+  - MEMCACHED__HOST=localhost
+
+#cache: pip
+
+branches:
+  only:
+  - master
+  - develop
+  - feature/*
+
+install:
+  - sudo apt-get install -y python3-memcache python3-pip pylint3 python3-pytest
+  - sudo pip3 install --upgrade pip
+  - sudo pip3 install -r requirements.txt
+
+before_script:
+  - export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages/:$PWD:$PWD/memcachewrapper/
+  - memcached -p 11212 -d
+
+# command to run tests
+script:
+  - echo "pylint3 --errors-only memcachewrapper/*.py ... "
+  - pylint3 --errors-only memcachewrapper/*.py
+
+  - echo "pytest ... "
+  - pytest-3
+ 
+  - echo "run memcachewrapper.py ... "
+  - python3 memcachewrapper/memcachewrapper.py
+
+  - echo "run examples ... "
+  - python3 test/example/*.py

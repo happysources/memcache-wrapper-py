@@ -32,6 +32,7 @@ install:
 
 before_script:
   - export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages/:$PWD:$PWD/memcachewrapper/
+  - wget -O - https://raw.githubusercontent.com/erikni/logni.py/develop/setup.sh | bash
   - memcached -p 11212 -d
 
 # command to run tests

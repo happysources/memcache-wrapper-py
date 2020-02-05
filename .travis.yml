@@ -15,7 +15,6 @@ services: memcache
 
 env:
   - PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages/:/usr/local/lib/python3/dist-packages/:$PWD:$PWD/memcachewrapper/
-  - MEMCACHED__HOST=localhost
 
 #cache: pip
 
